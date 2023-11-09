@@ -27,7 +27,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
         foreach (self::$permission as $feature => $roles) {
             Gate::define($feature, function (User $user) use ($roles) {
                 if (in_array($user->role, $roles)) {
