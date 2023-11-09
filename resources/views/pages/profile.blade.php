@@ -69,11 +69,12 @@
                                         <div class="form-group col-md-6 col-12">
                                             <label>Name</label>
                                             <input type="text" name="name"
-                                                class="form-control @error('name')
+                                                class="form-control
+                                                @error('name', 'updateProfileInformation')
                                                 is-invalid
                                             @enderror"
                                                 value="{{ auth()->user()->name }}">
-                                            @error('name')
+                                            @error('name', 'updateProfileInformation')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
@@ -82,28 +83,37 @@
                                         </div>
                                         <div class="form-group col-md-6 col-12">
                                             <label>Email</label>
-                                            <input type="email" name="email"
-                                                class="form-control @error('email')
+                                            <input type="email"
+                                                class="form-control
+                                                @error('email', 'updateProfileInformation')
+                                            is-invalid
+                                            @enderror"
+                                                name="email" value="{{ auth()->user()->email }}" required="">
+                                            @error('email', 'updateProfileInformation')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-12">
+                                            <label>Phone</label>
+                                            <input type="tel"
+                                                class="form-control
+                                                    @error('phone', 'updateProfileInformation')
                                             is-invalid
                                         @enderror"
-                                                value="{{ auth()->user()->email }}" required="">
-                                            @error('email')
+                                                value="{{ auth()->user()->phone }}" name="phone">
+                                            @error('phone', 'updateProfileInformation')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-5 col-12">
-                                            <label>Phone</label>
-                                            <input type="tel" name="phone"
-                                                class="form-control @error('phone')
-                                            is-invalid
-                                        @enderror"
-                                                value="{{ auth()->user()->phone }}">
-                                        </div>
-                                    </div>
+
                                     <div class="row">
                                         <div class="form-group col-12">
                                             <label>Bio</label>
@@ -111,6 +121,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="card-footer text-right">
                                     <button class="btn btn-primary" type="submit">Save Changes</button>
                                 </div>
