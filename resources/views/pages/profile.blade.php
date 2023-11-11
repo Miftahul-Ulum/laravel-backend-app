@@ -54,6 +54,7 @@
                                 {{ auth()->user()->bio }}
                             </div>
                         </div>
+
                         <div class="card">
                             <form method="post" action="{{ route('user-password.update') }}" class="needs-validation"
                                 novalidate="">
@@ -93,7 +94,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-group col-md-5 col-12">
+                                        <div class="form-group col-md-6 col-12">
                                             <label>Password Confirmation</label>
                                             <input type="password" class="form-control" name="password_confirmation">
                                         </div>
@@ -105,8 +106,10 @@
                             </form>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-12 col-md-12 col-lg-7">
+                <div class="row mt-sm-4">
+                    <div class="col-20 col-md-12 col-lg-12">
                         <div class="card">
                             <form method="post" action="{{ route('user-profile-information.update') }}"
                                 class="needs-validation" novalidate="">
