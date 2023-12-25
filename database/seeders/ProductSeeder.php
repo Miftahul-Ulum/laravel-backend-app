@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Database\Seeder;
-use Illuminate\Foundation\Auth\User;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
 class ProductSeeder extends Seeder
 {
@@ -15,16 +15,16 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::all();
+        $users = User::all();
         $categories = Category::all();
 
         for ($i = 0; $i < 100; $i++) {
-            $user = $user->random();
+            $user = $users->random();
             $category = $categories->random();
 
             Product::factory()->create([
                 'user_id' => $user->id,
-                'category_id' => $category->id
+                'category_id' => $category->id,
             ]);
         }
     }
