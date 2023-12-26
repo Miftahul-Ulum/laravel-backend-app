@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
@@ -13,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::paginate(10);
+        return ProductResource::collection(Product::paginate(10));
     }
 
     /**
@@ -38,24 +39,36 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Product $product)
     {
-        //
+        $product->load('category' . 'user');
+        return new ProductResource($product);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $product->update(
+            $request->validate([
+                'name' => 'required|string|max:100',
+                'description' => 'required|string',
+                'price' => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
+                'image_url' => 'required',
+                'category_id' => 'required',
+            ])
+        );
+
+        return $product;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return response(status: 204);
     }
 }

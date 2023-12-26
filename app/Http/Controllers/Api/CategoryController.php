@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -62,6 +67,6 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return response(status:204);
+        return response(status: 204);
     }
 }
