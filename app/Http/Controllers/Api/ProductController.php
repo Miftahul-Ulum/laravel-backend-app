@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return Product::paginate(10);
     }
 
     /**
@@ -20,7 +21,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = Product::$request([
+            ...$request->validate([
+                'name' => 'required|string|max:100',
+                'description' => 'required|string',
+                'price' => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
+                'image_url' => 'required',
+                'category_id' => 'required',
+            ]),
+
+            'user_id' => 1,
+
+        ]);
     }
 
     /**
